@@ -12,6 +12,7 @@ import {
   Typography,
   Paper
 } from '@mui/material';
+import OutlinedFlagRoundedIcon from '@mui/icons-material/OutlinedFlagRounded';
 import { createTask, getTask, updateTask } from '../services/api';
 
 const TaskForm = () => {
@@ -21,7 +22,7 @@ const TaskForm = () => {
     title: '',
     description: '',
     status: 'pending',
-    priority: 'medium',
+    priority: 'Normal',
     due_date: ''
   });
 
@@ -67,7 +68,7 @@ const TaskForm = () => {
 
   return (
     <Paper sx={{ p: 4 }}>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" gutterBottom style={{ fontWeight: 'bold'}}>
         {id ? 'Edit Task' : 'Create New Task'}
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
@@ -110,10 +111,28 @@ const TaskForm = () => {
             value={formData.priority}
             onChange={handleChange}
             label="Priority"
+            renderValue={(value) => (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <OutlinedFlagRoundedIcon 
+                  color={value === 'Low' ? 'success' : value === 'Normal' ? 'warning' : 'error'}
+                  sx={{ fontSize: 20 }}
+                />
+                {value}
+              </Box>
+            )}
           >
-            <MenuItem value="low">Low</MenuItem>
-            <MenuItem value="medium">Medium</MenuItem>
-            <MenuItem value="high">High</MenuItem>
+            <MenuItem value="Low" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <OutlinedFlagRoundedIcon color='success' sx={{ fontSize: 20 }}/>
+              Low
+            </MenuItem>
+            <MenuItem value="Normal" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <OutlinedFlagRoundedIcon color='warning' sx={{ fontSize: 20 }}/>
+              Normal
+            </MenuItem>
+            <MenuItem value="Urgent" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <OutlinedFlagRoundedIcon color='error' sx={{ fontSize: 20 }}/>
+              Urgent
+            </MenuItem>
           </Select>
         </FormControl>
         <TextField
@@ -145,5 +164,6 @@ const TaskForm = () => {
     </Paper>
   );
 };
+
 
 export default TaskForm;
