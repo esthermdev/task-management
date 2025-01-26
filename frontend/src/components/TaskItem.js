@@ -28,6 +28,7 @@ const TaskItem = ({ task, onDeleteClick }) => {
 
   return (
     <TableRow>
+      <TableCell>{task.id}</TableCell>
       <TableCell>{task.title}</TableCell>
       <TableCell>{task.description}</TableCell>
       <TableCell>
@@ -38,7 +39,7 @@ const TaskItem = ({ task, onDeleteClick }) => {
         />
       </TableCell>
       <TableCell>
-      <Chip
+        <Chip
           icon={
             <OutlinedFlagRoundedIcon 
               sx={{ fontSize: 16 }}
@@ -49,7 +50,13 @@ const TaskItem = ({ task, onDeleteClick }) => {
           variant="outlined"
           color={getPriorityColor(task.priority)}
           size="small"
-          sx={{ padding: 1 }}
+          sx={{ 
+            padding: 1,
+            bgcolor: task.priority === 'Urgent' ? '#ffebee' : 
+            task.priority === 'Normal' ? '#fff3e0' : 
+            task.priority === 'Low' ? '#e8f5e9' : 
+            '#f5f5f5'
+          }}
         />
       </TableCell>
       <TableCell>
