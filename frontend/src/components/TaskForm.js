@@ -52,8 +52,22 @@ const TaskForm = () => {
     }));
   };
 
+  const validateDate = (date) => {
+    if (!date) return true;
+
+    const selectedDate = new Date(date);
+    const maxYear = 2100;
+    return selectedDate.getFullYear() <= maxYear;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateDate(formData.due_date)) {
+      alert('Please select a valid date.');
+      return
+    }
+
     try {
       if (id) {
         await updateTask(id, formData);
