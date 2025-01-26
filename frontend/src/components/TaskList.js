@@ -16,7 +16,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  TableSortLabel
 } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import TaskItem from './TaskItem';
@@ -27,6 +28,8 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const [orderBy, setOrderBy] = useState('');
+  const [order, setOrder] = useState('asc');
 
   useEffect(() => {
     fetchTasks();
@@ -40,6 +43,31 @@ const TaskList = () => {
       console.error('Error fetching tasks:', error);
     }
   };
+
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  }
+
+  const sortTasks = () => {
+    if (!orderBy) return tasks;
+
+    return [...tasks].sort((a, b) => {
+      let aValue = a[orderBy];
+      let bValue = b[orderBy];
+
+      if (orderBy === 'due_date') {
+        aValue = new Date(aValue || null).getTime() || 0;
+        bValue = new Date(bValue || null).getTime() || 0;
+      }
+
+      if (order === 'desc') {
+        return bValue < aValue ? -1 : bValue > aValue ? 1 : 0;
+      }
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+    });
+  }
 
   const handleDeleteClick = (task) => {
     setTaskToDelete(task);
@@ -79,16 +107,41 @@ const TaskList = () => {
               },
               backgroundColor: '#f5f5f5',
             }}>
+              <TableCell>ID</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Due Date</TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={true}
+                  direction={orderBy === 'status' ? order : 'asc'}
+                  onClick={() => handleRequestSort('status')}
+                >
+                  Status
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={true}
+                  direction={orderBy === 'priority' ? order : 'asc'}
+                  onClick={() => handleRequestSort('priority')}
+                >
+                  Priority
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={true}
+                  direction={orderBy === 'due_date' ? order : 'asc'}
+                  onClick={() => handleRequestSort('due_date')}
+                >
+                  Due Date
+                </TableSortLabel>
+              </TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {tasks.map((task) => (
+            {sortTasks(tasks).map((task) => (
               <TaskItem
                 key={task.id}
                 task={task}
