@@ -18,9 +18,9 @@ const TaskItem = ({ task, onDeleteClick }) => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'completed': return 'success';
-      case 'in_progress': return 'warning';
-      case 'pending': return 'info';
+      case 'Completed': return 'success';
+      case 'In Progress': return 'warning';
+      case 'Pending': return 'info';
       default: return 'default';
     }
   };

@@ -21,7 +21,7 @@ const TaskForm = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    status: 'pending',
+    status: 'Pending',
     priority: 'Normal',
     due_date: ''
   });
@@ -99,9 +99,9 @@ const TaskForm = () => {
             onChange={handleChange}
             label="Status"
           >
-            <MenuItem value="pending">Pending</MenuItem>
-            <MenuItem value="in_progress">In Progress</MenuItem>
-            <MenuItem value="completed">Completed</MenuItem>
+            <MenuItem value="Pending">Pending</MenuItem>
+            <MenuItem value="In Progress">In Progress</MenuItem>
+            <MenuItem value="Completed">Completed</MenuItem>
           </Select>
         </FormControl>
         <FormControl fullWidth margin="normal">
