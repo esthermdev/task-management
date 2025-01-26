@@ -2,6 +2,7 @@
 import React from 'react';
 import { TableRow, TableCell, Button, Box, Chip } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import OutlinedFlagRoundedIcon from '@mui/icons-material/OutlinedFlagRounded';
 import { useNavigate } from 'react-router-dom';
 
 const TaskItem = ({ task, onDeleteClick }) => {
@@ -9,9 +10,9 @@ const TaskItem = ({ task, onDeleteClick }) => {
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'high': return 'error';
-      case 'medium': return 'warning';
-      case 'low': return 'success';
+      case 'Urgent': return 'error';
+      case 'Normal': return 'warning';
+      case 'Low': return 'success';
       default: return 'default';
     }
   };
@@ -37,10 +38,18 @@ const TaskItem = ({ task, onDeleteClick }) => {
         />
       </TableCell>
       <TableCell>
-        <Chip
+      <Chip
+          icon={
+            <OutlinedFlagRoundedIcon 
+              sx={{ fontSize: 16 }}
+              color={getPriorityColor(task.priority)}
+            />
+          }
           label={task.priority}
+          variant="outlined"
           color={getPriorityColor(task.priority)}
           size="small"
+          sx={{ padding: 1 }}
         />
       </TableCell>
       <TableCell>
