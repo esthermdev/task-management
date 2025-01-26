@@ -73,7 +73,12 @@ const TaskList = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ 
+              '& th': {
+                fontSize: 16
+              },
+              backgroundColor: '#f5f5f5',
+            }}>
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Status</TableCell>

@@ -17,6 +17,9 @@ const theme = createTheme({
       main: '#dc004e',
     },
   },
+  typography: {
+    fontFamily: 'Figtree'
+  }
 });
 
 function App() {
