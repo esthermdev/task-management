@@ -5,13 +5,15 @@ const taskController = {
   // Get all tasks
   getAllTasks: async (req, res) => {
     try {
+      console.log('Attempting to fetch tasks');
       const result = await db.query(
         'SELECT id, title, description, status, priority, due_date, created_at, updated_at FROM tasks ORDER BY created_at DESC'
       );
+      console.log('Tasks fetched:', result.rows);
       res.json(result.rows);
     } catch (error) {
-      console.error('Error getting tasks:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Error in getAllTasks:', error);
+      res.status(500).json({ error: 'Internal server error', details: error.message });
     }
   },
 
