@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = 'https://task-management-backend-16iy.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
