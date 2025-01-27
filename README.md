@@ -5,7 +5,7 @@ A full-stack task management application built with React and Node.js, featuring
 ## Live Demo
 
 A deployed version of the application is available at:
-[Task Management App](https://task-management-frontend-jk08uwhc0-esthermdevs-projects.vercel.app/)
+[Task Management App](https://task-management-frontend-tan.vercel.app//)
 
 This demo version is deployed using:
 - Frontend: Vercel
