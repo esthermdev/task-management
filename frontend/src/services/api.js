@@ -1,4 +1,3 @@
-// src/services/api.js
 import axios from 'axios';
 
 const API_URL = 'https://task-management-backend-16iy.onrender.com/api';
@@ -8,7 +7,17 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true  // Add this if using credentials
 });
+
+// Add interceptor for debugging
+api.interceptors.response.use(
+  response => response,
+  error => {
+    console.error('API Error:', error.response || error);
+    return Promise.reject(error);
+  }
+);
 
 export const getTasks = () => api.get('/tasks');
 export const getTask = (id) => api.get(`/tasks/${id}`);

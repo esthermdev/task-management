@@ -11,9 +11,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://task-management-frontend-tan.vercel.app/'
+    'https://task-management-frontend-tan.vercel.app'  // Remove the trailing slash
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Add explicit methods
+  allowedHeaders: ['Content-Type', 'Authorization']  // Add allowed headers
 }));
 app.use(express.json());
 
