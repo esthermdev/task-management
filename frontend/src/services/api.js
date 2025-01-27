@@ -20,14 +20,16 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  response => response,
+  response => {
+    console.log('Response received:', response.status);
+    return response;
+  },
   error => {
-    console.error('API Error Details:', {
-      endpoint: error.config?.url,
+    console.error('API Error:', {
+      url: error.config?.url,
       method: error.config?.method,
       status: error.response?.status,
-      message: error.message,
-      response: error.response?.data
+      data: error.response?.data
     });
     return Promise.reject(error);
   }
