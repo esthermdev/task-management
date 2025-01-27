@@ -37,10 +37,16 @@ const TaskList = () => {
 
   const fetchTasks = async () => {
     try {
+      console.log('Fetching tasks...');
       const response = await getTasks();
+      console.log('Tasks response:', response);
       setTasks(response.data);
     } catch (error) {
-      console.error('Error fetching tasks:', error);
+      console.error('Error fetching tasks:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
     }
   };
 

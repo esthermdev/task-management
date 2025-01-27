@@ -3,6 +3,11 @@ const express = require('express');
 const router = express.Router();
 const taskController = require('../controllers/taskController');
 
+router.get('/', (req, res) => {
+  console.log('GET /api/tasks request received');
+  taskController.getAllTasks(req, res);
+});
+
 // GET /api/tasks - Get all tasks
 router.get('/', taskController.getAllTasks);
 

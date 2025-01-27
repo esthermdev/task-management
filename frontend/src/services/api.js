@@ -7,14 +7,29 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true  // Add this if using credentials
+  withCredentials: true
 });
 
-// Add interceptor for debugging
+api.interceptors.request.use(
+  config => {
+    console.log('Making request to:', config.url);
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
 api.interceptors.response.use(
   response => response,
   error => {
-    console.error('API Error:', error.response || error);
+    console.error('API Error Details:', {
+      endpoint: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      message: error.message,
+      response: error.response?.data
+    });
     return Promise.reject(error);
   }
 );
